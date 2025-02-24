@@ -1,13 +1,16 @@
 'use client'
 
-import React from 'react'
-import { Swap, SpeakerLow, Microphone, X, Copy, Share } from "@phosphor-icons/react"; // Import Phosphor Icon
+import React, { useState } from 'react'
+import { Swap} from "@phosphor-icons/react"; // Import Phosphor Icon
 import Image from "next/image";
 import English from "./English";
 import Igbo from "./Igbo";
 
 
 const HomeMain = () => {
+    const [translatedText, setTranslatedText] = useState<string>("");
+
+
     return (
         <div>
             <main>
@@ -39,8 +42,8 @@ const HomeMain = () => {
                     </div>
                 </div>
                 <div className='mt-6 flex flex-col gap-[3rem] items-center md:flex-row md:p-[1rem]'>
-                    <English />
-                    <Igbo />
+                    <English setTranslatedText={setTranslatedText} />
+                    <Igbo translatedText={translatedText} />
                 </div>
             </main>
         </div>

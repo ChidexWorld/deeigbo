@@ -10,11 +10,16 @@ const FeedbackForm = () => {
     const [message, setMessage] = useState("");
     const [open, setOpen] = useState(false);
     const [error, setError] = useState("");
+    const [loading, setLoading] = useState(false);
 
-   
+
+
     const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
+        if (loading) return; // Prevent multiple clicks
+
         setError("");
+        setLoading(true); // Disable submit button
 
         try {
             //save to firebase
@@ -42,6 +47,8 @@ const FeedbackForm = () => {
             } else {
                 setError("Error submitting feedback. Please try again.");
             }
+        } finally {
+            setLoading(false); // Re-enable submit button
         }
     };
 
@@ -96,7 +103,7 @@ const FeedbackForm = () => {
                 />
 
                 <Button type="submit" variant="contained" color="primary" size="large">
-                    Submit
+                    {loading ? "Submitting..." : "Submit"}
                 </Button>
 
                 {error && <Alert severity="error">{error}</Alert>}

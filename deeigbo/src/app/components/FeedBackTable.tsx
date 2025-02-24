@@ -1,7 +1,7 @@
 "use client"; // Ensure this runs on the client side
 
 import React, { useEffect, useState } from "react";
-import { collection, getDocs } from "firebase/firestore";
+import { collection, getDocs , query, orderBy } from "firebase/firestore";
 import { Timestamp } from "firebase/firestore"; // Import separately
 
 import { db } from "../firebase/config";
@@ -26,7 +26,9 @@ const FeedbackTable = () => {
     useEffect(() => {
         const fetchFeedbacks = async () => {
             try {
-                const querySnapshot = await getDocs(collection(db, "feedback"));
+                const feedbackQuery = query(collection(db, "feedback"), orderBy("createdAt", "desc"));
+                const querySnapshot = await getDocs(feedbackQuery);
+
                 const feedbackList: Feedback[] = querySnapshot.docs.map((doc) => {
                     const data = doc.data() as Feedback; // Cast to `Feedback`
                     return {

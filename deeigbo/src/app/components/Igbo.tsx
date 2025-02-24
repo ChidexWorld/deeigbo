@@ -1,33 +1,45 @@
-import React, { useState, useRef } from 'react'
+import React, { useState } from 'react'
 import { SpeakerLow, Copy, Share, Check } from "@phosphor-icons/react"; // Import Phosphor Icon
 
 
-const Igbo = () => {
-    //copy text
+interface TranslatedOutputProps {
+    translatedText: string;
+}
+const Igbo: React.FC<TranslatedOutputProps> = ({ translatedText }) => {
+    // State for copy and share actions
     const [copied, setCopied] = useState(false);
-    const textRef = useRef<HTMLDivElement>(null);
+    const [shared, setShared] = useState(false);
 
 
     const handleCopy = async () => {
-        if (textRef.current) {
-            try {
-                await navigator.clipboard.writeText(textRef.current.innerText);
-                setCopied(true);
-                setTimeout(() => setCopied(false), 2000); // Reset after 2 seconds
-            } catch (err) {
-                console.error("Failed to copy:", err);
+        if (!translatedText) return;
+
+
+        try {
+            if (navigator.clipboard && navigator.clipboard.writeText) {
+                await navigator.clipboard.writeText(translatedText);
+            } else {
+                // Fallback method using document.execCommand
+                const textArea = document.createElement("textarea");
+                textArea.value = translatedText;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand("copy");
+                document.body.removeChild(textArea);
             }
+
+            setCopied(true);
+            setTimeout(() => setCopied(false), 2000);
+        } catch (err) {
+            console.error("Failed to copy:", err);
         }
     };
 
-    //share text 
-    const [shared, setShared] = useState(false);
-
     const handleShare = async () => {
-        if (navigator.share && textRef.current?.innerText) {
+        if (navigator.share) {
             try {
                 await navigator.share({
-                    text: textRef.current.innerText,
+                    text: translatedText,
                     url: window.location.href,
                 });
                 setShared(true);
@@ -40,15 +52,28 @@ const Igbo = () => {
         }
     };
 
+    // Function to handle text-to-speech
+    const handleSpeak = () => {
+        console.log("speak")
+        if (!translatedText) return; // Don't read if there's no text
+
+        const utterance = new SpeechSynthesisUtterance(translatedText);
+        utterance.lang = "ig-NG"; // Igbo language (Change if needed)
+        utterance.rate = 1; // Normal speed
+        utterance.pitch = 1; // Normal pitch
+        speechSynthesis.speak(utterance);
+    };
+
+
     return (
         <div className='shadow-md bg-[#6750A4] bg-opacity-10 rounded-lg w-[90%] md:w-[50%] p-[1rem] '>
             <div className='text-[#003366] flex gap-[1rem] items-center'>
                 <h4 className='text-lg font-semibold '>Igbo</h4>
-                <SpeakerLow size={32} className='cursor-pointer' />
+                <SpeakerLow size={32} className='cursor-pointer' onClick={handleSpeak} />
             </div>
 
             <p
-                className='shadow-md w-[95%] bg-white rounded-lg p-[1rem] min-h-[13.5rem] mt-3' ref={textRef}>Kedu ka imere?
+                className='shadow-md w-[95%] bg-white rounded-lg p-[1rem] min-h-[13.5rem] mt-3'>{translatedText || "Your translation will appear here..."}
             </p>
 
             <div className='flex justify-end items-center gap-[2rem] mt-3 text-[#003366]'>
