@@ -1,7 +1,7 @@
 'use client'
 
 import React, { useState } from 'react'
-import { Swap} from "@phosphor-icons/react"; // Import Phosphor Icon
+import { ArrowSquareRight } from "@phosphor-icons/react"; // Import Phosphor Icon
 import Image from "next/image";
 import English from "./English";
 import Igbo from "./Igbo";
@@ -27,7 +27,7 @@ const HomeMain = () => {
 
                             <h4 className='text-lg font-semibold'>English</h4>
                         </div>
-                        <Swap size={32} />
+                        <ArrowSquareRight size={32} />
                         <div className='flex gap-[5px]'>
                             <h4 className='text-lg font-semibold'>igbo</h4>
 

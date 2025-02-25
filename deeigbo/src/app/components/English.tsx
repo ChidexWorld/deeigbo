@@ -10,6 +10,7 @@ const English: React.FC<EnglishProps> = ({ setTranslatedText }) => {
     const [text, setText] = useState<string>(""); // Store user input   
     const [loading, setLoading] = useState<boolean>(false); // Track translation state
     const [isPlaying, setIsPlaying] = useState<boolean>(false); // Track if audio is playing
+    const [listening, setListening] = useState(false);
 
 
     // Function to handle text change
@@ -87,6 +88,66 @@ const English: React.FC<EnglishProps> = ({ setTranslatedText }) => {
         }
     };
 
+    const [recognitionInstance, setRecognitionInstance] = useState<SpeechRecognition | null>(null);
+
+    const startListening = () => {
+        if (!("webkitSpeechRecognition" in window)) {
+            alert("Speech recognition is not supported in this browser.");
+            return;
+        }
+
+        if (listening) {
+            setListening(false);
+            recognitionInstance?.stop(); // ✅ Stop recognition properly
+            return
+        }; // Prevent multiple clicks while it's active
+
+
+
+        //speech instance that listen to user's voice 
+        const recognition = new window.webkitSpeechRecognition();
+
+        // Configure the Speech Recognition
+        recognition.lang = "en-US"; // Set language to English (US)
+        recognition.continuous = true; // Keep listening until stopped
+        recognition.interimResults = true; // Show real-time updates
+
+        //Handle the Start Event
+        recognition.onstart = () => {
+            setListening(true);
+            console.log("🎙️ Listening...");
+
+        };
+
+        //Process the Speech Results
+        recognition.onresult = (event) => {
+            let transcript = "";
+            for (let i = event.resultIndex; i < event.results.length; i++) {
+                transcript += event.results[i][0].transcript + " ";
+            }
+            setText(transcript); // Update input field with speech text
+            console.log("Recognized speech:", transcript); // ✅ Log text to console
+        };
+
+        //Handle Errors
+        recognition.onerror = (event) => {
+            console.error("Speech recognition error:", event.error);
+            setListening(false);
+
+        };
+
+        //Stop Listening Automatically
+        recognition.onend = () => {
+            setListening(false);
+            console.log("🎤 Stopped listening");
+        };
+
+        recognition.start(); // Start listening
+        setRecognitionInstance(recognition); // ✅ Store recognition instance in state
+
+    }
+
+
 
     return (
         <div className='shadow-md bg-[#6750A4] bg-opacity-10 rounded-lg w-[90%] md:w-[50%] p-[1rem] '>
@@ -100,7 +161,8 @@ const English: React.FC<EnglishProps> = ({ setTranslatedText }) => {
                         <SpeakerLow size={32} className='cursor-pointer' onClick={handleSpeak} />
                     )}                </div>
 
-                <X size={20} weight="bold" className='cursor-pointer' onClick={handleClearText}
+                <X size={20} weight="bold" className='cursor-poi    setText(prev => prev + transcript); // ✅ Append speech to existing text
+nter' onClick={handleClearText}
                 />
 
             </div>
@@ -131,7 +193,8 @@ const English: React.FC<EnglishProps> = ({ setTranslatedText }) => {
             )} */}
 
             <div className='flex justify-between items-center mt-3'>
-                <div className='bg-[#003366] h-[40px] w-[40px] rounded-full text-white flex justify-center items-center'>
+                <div className={`bg-[#003366] h-[40px] w-[40px] rounded-full text-white flex justify-center items-center ${listening ? "bg-red-600 animate-pulse" : "bg-[#003366]"}`} onClick={startListening}
+                >
                     <Microphone size={32} className='cursor-pointer' />
                 </div>
 
