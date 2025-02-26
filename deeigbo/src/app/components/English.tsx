@@ -47,7 +47,7 @@ const English: React.FC<EnglishProps> = ({ setTranslatedText }) => {
             setTranslatedText(data.translation);
         } catch (error) {
             console.error("Translation error:", error);
-            setTranslatedText("Translation failed. Try again.");
+            setTranslatedText("Translation failed. check your network service and try again");
         } finally {
             setLoading(false);
         }

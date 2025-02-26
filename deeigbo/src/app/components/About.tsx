@@ -18,7 +18,7 @@ const features: Feature[] = [
         id: 1,
         icon: <Translate size={48} weight="fill" color="#3f51b5" />,
         title: "Real-time Translation",
-        description: "Instantly translate English to Igbo and Igbo to English with high accuracy.",
+        description: "Instantly translate English to Igbo  with high accuracy.",
     },
     {
         id: 2,
@@ -72,7 +72,7 @@ const About: React.FC = () => {
                 About Dée Ìgbò
             </Typography>
             <Typography variant="body1" color="text.secondary" mb={4} maxWidth="600px" margin="auto">
-                <strong>Dée Ìgbò</strong> is an AI-powered tool that helps users translate between English and Igbo,
+                <strong>Dée Ìgbò</strong> is an AI-powered tool that helps users translate from English to Igbo,
                 making language learning and communication seamless.
             </Typography>
 

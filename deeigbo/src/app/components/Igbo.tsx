@@ -53,23 +53,23 @@ const Igbo: React.FC<TranslatedOutputProps> = ({ translatedText }) => {
     };
 
     // Function to handle text-to-speech
-    const handleSpeak = () => {
-        console.log("speak")
-        if (!translatedText) return; // Don't read if there's no text
+    // const handleSpeak = () => {
+    //     console.log("speak")
+    //     if (!translatedText) return; // Don't read if there's no text
 
-        const utterance = new SpeechSynthesisUtterance(translatedText);
-        utterance.lang = "ig-NG"; // Igbo language (Change if needed)
-        utterance.rate = 1; // Normal speed
-        utterance.pitch = 1; // Normal pitch
-        speechSynthesis.speak(utterance);
-    };
+    //     const utterance = new SpeechSynthesisUtterance(translatedText);
+    //     utterance.lang = "ig-NG"; // Igbo language (Change if needed)
+    //     utterance.rate = 1; // Normal speed
+    //     utterance.pitch = 1; // Normal pitch
+    //     speechSynthesis.speak(utterance);
+    // };
 
 
     return (
         <div className='shadow-md bg-[#6750A4] bg-opacity-10 rounded-lg w-[90%] md:w-[50%] p-[1rem] '>
             <div className='text-[#003366] flex gap-[1rem] items-center'>
                 <h4 className='text-lg font-semibold '>Igbo</h4>
-                <SpeakerLow size={32} className='cursor-pointer' onClick={handleSpeak} />
+                <SpeakerLow size={32} className='cursor-pointer' onClick={()=>alert("this feature is coming soon")} />
             </div>
 
             <p
