@@ -31,7 +31,7 @@ const English: React.FC<EnglishProps> = ({ setTranslatedText }) => {
         setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:5000/translate", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/translate`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json",
@@ -58,7 +58,7 @@ const English: React.FC<EnglishProps> = ({ setTranslatedText }) => {
         if (!text.trim()) return; // Prevent empty requests
 
         try {
-            const response = await fetch("http://localhost:5000/tts", {
+            const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/tts`, {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ text, language: "en" }), // English
@@ -67,19 +67,13 @@ const English: React.FC<EnglishProps> = ({ setTranslatedText }) => {
             const data = await response.json();
             if (!data.success) throw new Error("TTS failed");
 
-            const audioUrl = `http://localhost:5000/audio/${data.audio}`;
+            const audioUrl = `${process.env.NEXT_PUBLIC_API_URL}/audio/${data.audio}`;
             const audio = new Audio(audioUrl); // Use the file path
 
             setIsPlaying(true);// Change icon
             audio.play(); // Play the generated speech
 
             audio.onended = () => setIsPlaying(false);// Revert icon
-
-            audio.onended = () => {
-                setIsPlaying(false);
-                // Delete file from server
-                fetch(audioUrl, { method: "DELETE" }).catch(err => console.error("Delete failed:", err));
-            };
 
         } catch (error) {
             console.error("Speech Error:", error);
