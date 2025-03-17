@@ -16,10 +16,6 @@ This project was developed as part of a **class group project**, with **Igboanug
 - Fast response time
 - **Requires an active internet connection**
 
-## 📸 Screenshots
-![DeeIgbo Homepage](https://via.placeholder.com/600x400)  
-![Translation Example](https://via.placeholder.com/600x400)  
-
 ## 🚀 Live Demo
 🔗 [DeeIgbo Translator](https://deeigbo.vercel.app/)
 
