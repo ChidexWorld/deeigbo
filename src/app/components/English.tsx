@@ -141,8 +141,6 @@ const English: React.FC<EnglishProps> = ({ setTranslatedText }) => {
 
     }
 
-
-
     return (
         <div className='shadow-md bg-[#6750A4] bg-opacity-10 rounded-lg w-[90%] md:w-[50%] p-[1rem] '>
             <div className='flex justify-between items-center'>

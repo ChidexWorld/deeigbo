@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { SpeakerLow, Copy, Share, Check } from "@phosphor-icons/react"; // Import Phosphor Icon
+import {  Copy, Share, Check } from "@phosphor-icons/react"; // Import Phosphor Icon
 
 
 interface TranslatedOutputProps {
@@ -69,7 +69,7 @@ const Igbo: React.FC<TranslatedOutputProps> = ({ translatedText }) => {
         <div className='shadow-md bg-[#6750A4] bg-opacity-10 rounded-lg w-[90%] md:w-[50%] p-[1rem] '>
             <div className='text-[#003366] flex gap-[1rem] items-center'>
                 <h4 className='text-lg font-semibold '>Igbo</h4>
-                <SpeakerLow size={32} className='cursor-pointer' onClick={()=>alert("this feature is coming soon")} />
+                {/* <SpeakerLow size={32} className='cursor-pointer' onClick={()=>alert("this feature is coming soon")} /> */}
             </div>
 
             <p
