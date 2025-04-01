@@ -8,38 +8,21 @@ import { LinkedinLogo, GithubLogo, TwitterLogo } from "@phosphor-icons/react";
 const teamMembers = [
     {
         id: 1,
-        name: "John Doe",
-        role: "Frontend Developer",
-        image: "/team/john.jpg", // Replace with actual image paths
-        linkedin: "https://linkedin.com/in/johndoe",
-        github: "https://github.com/johndoe",
-        twitter: "https://twitter.com/johndoe",
+        name: "Igboanugo Chidera Goodness",
+        role: "Software Engineer",
+        image: "/team/chidex.jpg",
+        linkedin: "https://www.linkedin.com/in/chidexstanley",
+        github: "https://github.com/ChidexWorld",
+        twitter: "https://x.com/ChidexWorld_?t=EOk_owyQV686hFsGH7Ui0A&s=09",
     },
-    {
-        id: 2,
-        name: "Jane Smith",
-        role: "Backend Developer",
-        image: "/team/jane.jpg",
-        linkedin: "https://linkedin.com/in/janesmith",
-        github: "https://github.com/janesmith",
-        twitter: "https://twitter.com/janesmith",
-    },
-    {
-        id: 3,
-        name: "Michael Brown",
-        role: "UI/UX Designer",
-        image: "/team/michael.jpg",
-        linkedin: "https://linkedin.com/in/michaelbrown",
-        github: "https://github.com/michaelbrown",
-        twitter: "https://twitter.com/michaelbrown",
-    },
+    
 ];
 
 const TeamDisplay = () => {
     return (
         <Box sx={{ flexGrow: 1, p: 4, textAlign: "center" }}>
             <Typography variant="h4" fontWeight="bold" mb={3}>
-                Meet Our Team
+                Meet Our Developer
             </Typography>
 
             <Grid container spacing={3} justifyContent="center">
